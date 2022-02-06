@@ -23,3 +23,23 @@ jobs:
 
     - name: Test
       run: go test -tags=test -v ./...
+
+  build and push:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+
+    - name: docker login
+      env:
+        DOCKER_USER: ${{ secrets.DOCKER_USER }}   
+        DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}  
+      run: |
+        docker login -u $DOCKER_USER -p $DOCKER_PASSWORD
+
+    - name: docker build golang
+      run: |
+        docker build -f ./bookingserver.Dockerfile -t ${{ secrets.DOCKER_USER }}/booking-server:${{GITHUB_SHA}}
+        
+    - name: docker push
+      run: |
+        docker ${{ secrets.DOCKER_USER }}/booking-server:${{GITHUB_SHA}}
