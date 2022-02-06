@@ -42,4 +42,4 @@ jobs:
         
     - name: docker push
       run: |
-        docker ${{ secrets.DOCKER_USER }}/booking-server:v0.0.1
+        docker push ${{ secrets.DOCKER_USER }}/booking-server:v0.0.1
