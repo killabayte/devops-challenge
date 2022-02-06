@@ -36,10 +36,18 @@ jobs:
       run: |
         docker login -u $DOCKER_USER -p $DOCKER_PASSWORD
         
-    - name: docker build golang
+    - name: docker build booking-server
       run: |
         docker build -f bookingserver.Dockerfile . -t ${{ secrets.DOCKER_USER }}/booking-server:$(echo ${GITHUB_SHA} | cut -c1-8)
         
-    - name: docker push
+    - name: docker build write-hello
+      run: |
+        docker build -f writehello.Dockerfile . -t ${{ secrets.DOCKER_USER }}/write-hello:$(echo ${GITHUB_SHA} | cut -c1-8)
+        
+    - name: docker push booking-server
       run: |
         docker push ${{ secrets.DOCKER_USER }}/booking-server:$(echo ${GITHUB_SHA} | cut -c1-8)
+        
+    - name: docker push write-hello
+      run: |
+        docker push ${{ secrets.DOCKER_USER }}/write-hello:$(echo ${GITHUB_SHA} | cut -c1-8)
