@@ -42,4 +42,4 @@ jobs:
         
     - name: docker push
       run: |
-        docker ${{ secrets.DOCKER_USER }}/booking-server:${{GITHUB_SHA}}
+        docker ${{ secrets.DOCKER_USER }}/booking-server:${GITHUB_SHA}
