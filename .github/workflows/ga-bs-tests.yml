@@ -38,7 +38,7 @@ jobs:
 
     - name: docker build golang
       run: |
-        docker build -f ./bookingserver.Dockerfile -t ${{ secrets.DOCKER_USER }}/booking-server:${{GITHUB_SHA}}
+        docker build -f ./bookingserver.Dockerfile -t ${{ secrets.DOCKER_USER }}/booking-server:${GITHUB_SHA}
         
     - name: docker push
       run: |
