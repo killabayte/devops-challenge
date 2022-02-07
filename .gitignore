@@ -9,5 +9,5 @@
 .LSOverride
 
 ### K8s ###
-./k8s/manifests/postgres/03_postgres-secrets.yaml
-./k8s/manifests/postgres/06_tern-secrets.yaml
+*_postgres-secrets.yaml
+*_tern-secrets.yaml
