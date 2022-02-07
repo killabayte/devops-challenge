@@ -1,0 +1,30 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: booking-server
+  namespace: applications
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: booking-server
+  template:
+    metadata:
+      labels:
+        app: booking-server
+    spec:
+      initContainers:
+        - name: tern-migrations
+          image: yaroslavkostyannikov/tern:v0.0.8
+          imagePullPolicy: "IfNotPresent"
+      containers:
+        - name: booking-server
+          image: yaroslavkostyannikov/booking-server:0625535b
+          imagePullPolicy: "IfNotPresent"
+          ports:
+          - containerPort: 5000
+            name: booking-http
+            protocol: TCP
+          envFrom:
+            - secretRef:
+                name: booking-server-secrets

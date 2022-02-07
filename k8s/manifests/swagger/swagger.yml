@@ -1,0 +1,187 @@
+definitions:
+  BookingRequest:
+    properties:
+      Birthday:
+        $ref: '#/definitions/Date'
+      Date:
+        $ref: '#/definitions/Date'
+      DestinationID:
+        type: string
+      FirstName:
+        type: string
+      Gender:
+        type: string
+      LastName:
+        type: string
+      LaunchpadID:
+        type: string
+      id:
+        type: string
+        x-go-name: ID
+    type: object
+    x-go-package: spacetrouble/internal/pkg/booking
+  BookingSuccessResponse:
+    description: A BookingSuccessResponse Object
+    properties:
+      CreatedAt:
+        format: date-time
+        type: string
+      Flight:
+        $ref: '#/definitions/Flight'
+      ID:
+        $ref: '#/definitions/UUID'
+      Status:
+        type: string
+      User:
+        $ref: '#/definitions/User'
+    title: |-
+      Created
+      The operation was processed successfully
+    type: object
+    x-go-package: spacetrouble/internal/pkg/docs
+  Date:
+    type: object
+    x-go-package: spacetrouble/internal/pkg/booking
+  Destination:
+    properties:
+      ID:
+        $ref: '#/definitions/UUID'
+      Name:
+        type: string
+    type: object
+    x-go-package: spacetrouble/internal/pkg/entity
+  Flight:
+    properties:
+      Date:
+        format: date-time
+        type: string
+      Destination:
+        $ref: '#/definitions/Destination'
+      ID:
+        $ref: '#/definitions/UUID'
+      LaunchpadID:
+        type: string
+    type: object
+    x-go-package: spacetrouble/internal/pkg/entity
+  UUID:
+    description: |-
+      A UUID is a 128 bit (16 byte) Universal Unique IDentifier as defined in RFC
+      4122.
+    items:
+      format: uint8
+      type: integer
+    type: array
+    x-go-package: github.com/google/uuid
+  User:
+    properties:
+      Birthday:
+        format: date-time
+        type: string
+      FirstName:
+        type: string
+      Gender:
+        type: string
+      ID:
+        $ref: '#/definitions/UUID'
+      LastName:
+        type: string
+    type: object
+    x-go-package: spacetrouble/internal/pkg/entity
+paths:
+  /v1/bookings:
+    get:
+      description: Supports pagination via the cursor query parameter
+      operationId: All
+      parameters:
+      - format: int64
+        in: query
+        name: limit
+        type: integer
+        x-go-name: Limit
+      - in: query
+        name: cursor
+        type: string
+        x-go-name: Cursor
+      produces:
+      - application/json
+      responses:
+        "200":
+          $ref: '#/responses/AllBookingsPaginated'
+        "400":
+          description: ""
+        "500":
+          description: ""
+      summary: Fetches all bookings.
+      tags:
+      - Bookings
+    post:
+      operationId: Booking
+      parameters:
+      - description: A  booking object
+        in: body
+        name: Body
+        required: true
+        schema:
+          $ref: '#/definitions/BookingRequest'
+      produces:
+      - application/json
+      responses:
+        "201":
+          $ref: '#/responses/BookingSuccessResponse'
+        "400":
+          description: ""
+        "404":
+          description: ""
+        "409":
+          description: ""
+        "500":
+          description: ""
+      summary: Attempts to make a new booking to a space destination.
+      tags:
+      - Bookings
+  /v1/health:
+    get:
+      operationId: Health
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: ""
+      summary: Just returns 200 when service is up.
+      tags:
+      - Health
+responses:
+  AllBookingsPaginated:
+    description: |-
+      OK
+      The operation was processed successfully
+
+      An AllBookingsResponse obj
+    headers:
+      bookings:
+        items:
+          $ref: '#/definitions/BookingSuccessResponse'
+        type: array
+      cursor:
+        type: string
+      limit:
+        format: int64
+        type: integer
+  BookingSuccessResponse:
+    description: |-
+      Created
+      The operation was processed successfully
+
+      A BookingSuccessResponse Object
+    headers:
+      CreatedAt:
+        format: date-time
+        type: string
+      Flight: {}
+      ID: {}
+      Status:
+        type: string
+      User: {}
+    schema:
+      $ref: '#/definitions/Flight'
+swagger: "2.0"

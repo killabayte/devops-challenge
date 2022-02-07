@@ -1,0 +1,20 @@
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: write-hello-sunday
+  namespace: applications
+spec:
+  schedule: "0 * * * 0"
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          containers:
+          - name: write-hello-sunday
+            image: yaroslavkostyannikov/write-hello:0625535b
+            imagePullPolicy: IfNotPresent
+            envFrom:
+            - secretRef:
+                name: write-hello-secrets
+          restartPolicy: OnFailure
+

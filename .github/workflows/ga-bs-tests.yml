@@ -1,4 +1,4 @@
-name: Tests - booking-server application
+name: Deployment pipeline - Booking server and related
 
 on:
   push:

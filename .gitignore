@@ -11,3 +11,5 @@
 ### K8s ###
 *_postgres-secrets.yaml
 *_tern-secrets.yaml
+*_write-hello-secrets.yaml
+*_booking-server-secrets.yaml
