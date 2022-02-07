@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: tern-migrations
+  namespace: postgres
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: tern-migrations
+  template:
+    metadata:
+      labels:
+        app: tern-migrations
+    spec:
+      containers:
+        - name: tern-migrations
+          image: yaroslavkostyannikov/tern:v0.0.6
+          imagePullPolicy: "IfNotPresent"
+          envFrom:
+            - secretRef:
+                name: tern-secrets

@@ -4,7 +4,7 @@ metadata:
   name: postgres-configmap
   namespace: postgres
 data:
-  POSTGRES_HOST: "postgres.postgres.svc.cluster.local"
   POSTGRES_PORT: "5432"
   POSTGRES_DB: "space"
   POSTGRES_USER: "postgres"
+  PGDATA: "/var/lib/postgresql/data/pgdata"

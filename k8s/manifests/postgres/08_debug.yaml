@@ -1,0 +1,20 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: debug
+  namespace: postgres
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: debug
+  template:
+    metadata:
+      labels:
+        app: debug
+    spec:
+      containers:
+      - name: debug
+        image: golang:1.16.3
+        command: ["/bin/bash"]
+        args: ["-c", "sleep 10000"]
