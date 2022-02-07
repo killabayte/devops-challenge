@@ -7,3 +7,7 @@
 *.DS_Store
 .AppleDouble
 .LSOverride
+
+### K8s ###
+./k8s/manifests/postgres/03_postgres-secrets.yaml
+./k8s/manifests/postgres/06_tern-secrets.yaml
