@@ -1,4 +1,4 @@
-# Tabeo DevOps Challenge
+# DevOps Challenge
 
 A developer has created a system for booking space travel. The system has a server component that provides an API. 
 It also has a cronjob component.
